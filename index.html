@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>special gift</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Great+Vibes&family=Courier+Prime&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #fcf9f5;
+            --card-bg: #ffffff;
+            --text-main: #2d2a29;
+            --text-muted: #787370;
+            --primary-red: #d93848;
+            --primary-red-hover: #b52c38;
+            --soft-red-bg: #fdf2f2;
+            --border-color: #efece6;
+            --shadow: 0 10px 30px rgba(217, 56, 72, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+        }
+
+        .phone-container {
+            width: 100%;
+            max-width: 412px;
+            height: 840px;
+            max-height: 90vh;
+            background: var(--card-bg);
+            border-radius: 40px;
+            box-shadow: var(--shadow);
+            border: 8px solid #2d2a29;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Top Notch / Header */
+        .phone-header {
+            padding: 20px 24px 10px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .brand {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .step-indicator {
+            font-size: 12px;
+            color: var(--text-muted);
+            background: var(--soft-red-bg);
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+
+        /* Main Content Area */
+        .content-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            overflow-y: auto;
+        }
+
+        .screen {
+            display: none;
+            flex-direction: column;
+            height: 100%;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .screen.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        p.subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        /* Swipe-able Container */
+        .swipe-container {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            padding-bottom: 16px;
+            margin-bottom: auto;
+            scrollbar-width: none;
+        }
+
+        .swipe-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .option-card {
+            min-width: 260px;
+            width: 260px;
+            height: 320px;
+            background: #fff;
+            border: 2px solid var(--border-color);
+            border-radius: 24px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            scroll-snap-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .option-card.locked {
+            opacity: 0.4;
+            filter: grayscale(80%);
+            border-style: dashed;
+            pointer-events: none;
+        }
+
+        .option-card.unlocked {
+            border-color: var(--primary-red);
+            background: var(--soft-red-bg);
+            box-shadow: 0 8px 20px rgba(217, 56, 72, 0.1);
+        }
+
+        .lock-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: #ddd;
+            color: #555;
+            font-size: 11px;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        .unlocked .lock-badge {
+            background: var(--primary-red);
+            color: white;
+        }
+
+        .preview-box {
+            width: 100%;
+            height: 140px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            margin-top: 10px;
+        }
+
+        .option-info h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .option-info p {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 14px;
+            border-radius: 14px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        .btn-reject {
+            background: #f1ede6;
+            color: var(--text-muted);
+        }
+
+        .btn-reject:hover {
+            background: #e4dfd5;
+        }
+
+        .btn-approve {
+            background: var(--primary-red);
+            color: white;
+        }
+
+        .btn-approve:hover {
+            background: var(--primary-red-hover);
+        }
+
+        .btn-primary {
+            width: 100%;
+            background: var(--primary-red);
+            color: white;
+            padding: 16px;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 15px;
+            border: none;
+            cursor: pointer;
+            margin-top: 16px;
+            box-shadow: 0 4px 12px rgba(217, 56, 72, 0.2);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-red-hover);
+        }
+
+        /* Final Card Preview Screen */
+        .final-card-preview {
+            width: 100%;
+            height: 380px;
+            border-radius: 24px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            margin-bottom: 16px;
+            transition: all 0.5s ease;
+        }
+
+        .final-message {
+            font-size: 20px;
+            line-height: 1.6;
+            z-index: 2;
+        }
+
+        .final-decoration {
+            font-size: 32px;
+            align-self: flex-end;
+            z-index: 2;
+        }
+
+        .final-signature {
+            font-size: 13px;
+            font-weight: 600;
+            opacity: 0.8;
+            z-index: 2;
+        }
+
+        /* Swipe hint indicator */
+        .swipe-hint {
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="phone-container">
+        <!-- Header -->
+        <div class="phone-header">
+            <span class="brand">make you bday card urself</span>
+            <span class="step-indicator" id="stepIndicator">decor no. 1</span>
+        </div>
+
+        <!-- Content Body -->
+        <div class="content-area">
+
+            <!-- STEP 1: Background Selection -->
+            <div class="screen active" id="screen-1">
+                <h1>background</h1>
+                <p class="subtitle">choose which bg you like, or can you >:)</p>
+                
+                <div class="swipe-hint"><span>← see all options of background before approving →</span></div>
+
+                <div class="swipe-container">
+                    <!-- Locked Option 1 -->
+                    <div class="option-card locked">
+                        <span class="lock-badge">🔒</span>
+                        <div class="preview-box" style="background: #ffc4c8; border: 2px dashed var(--primary-red);">🌸</div>
+                        <div class="option-info">
+                            <h3>rose theme</h3>
+                            <p>i already made the website rose so no rose card</p>
+                        </div>
+                    </div>
+
+                    <!-- Unlocked Gift Option -->
+                    <div class="option-card unlocked" id="bg-gift-card">
+                        <span class="lock-badge"></span>
+                        <div class="preview-box" style="background: #1a1a1a; color: white;">🌙</div>
+                          <div class="option-info">
+                            <h3>midnight moon</h3>
+                            <p>you will understand why this one is choosen in step 3...</p>
+                        </div>
+                    </div>
+
+                    <!-- Locked Option 2 -->
+                    <div class="option-card locked">
+                        <span class="lock-badge">🔒</span>
+                        <div class="preview-box" style="background: #2e84ff;">🌊</div>
+                        <div class="option-info">
+                            <h3>blue</h3>
+                            <p>mera fav color but bday to tera hai </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-reject" onclick="handleReject('Background')">Reject</button>
+                    <button class="btn btn-approve" onclick="nextStep(2)">Approve Gift ❤️</button>
+                </div>
+            </div>
+
+            <!-- STEP 2: Font & Typography -->
+            <div class="screen" id="screen-2">
+                <h1>font</h1>
+                <p class="subtitle">choose font for the card</p>
+
+                <div class="swipe-hint"><span>← see all the fonts before approving →</span></div>
+
+                <div class="swipe-container">
+                    <div class="option-card locked">
+                        <span class="lock-badge">🔒</span>
+                        <div class="preview-box" style="font-family: 'Sans Mono', monospace;">typewriter</div>
+                        <div class="option-info">
+                            <h3>random boring font</h3>
+                            <p>if you 90s ki hoti then this would suit you tbh</p>
+                        </div>
+                    </div>
+
+                    <div class="option-card unlocked">
+                        <span class="lock-badge"></span>
+                        <div class="preview-box" style="font-family: 'Great Vibes', cursive; color: var(--primary-red); font-size: 42px;">Smooth</div>
+                        <div class="option-info">
+                            <h3>cursiveee</h3>
+                            <p>very aestheticcccc</p>
+                        </div>
+                    </div>
+
+                    <div class="option-card locked">
+                        <span class="lock-badge">🔒</span>
+                        <div class="preview-box" style="font-family: sans-serif; font-weight: 300;">iCard</div>
+                        <div class="option-info">
+                            <h3>apple uses this ig</h3>
+                            <p>literally har apple ad me hota ye</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-reject" onclick="handleReject('Font')">Reject</button>
+                    <button class="btn btn-approve" onclick="nextStep(3)">Approve Gift ❤️</button>
+                </div>
+            </div>
+
+            <!-- STEP 3: Decoration & Accents -->
+            <div class="screen" id="screen-3">
+                <h1>emoji timeee</h1>
+                <p class="subtitle">an emoji for the card's front</p>
+
+                <div class="swipe-hint"><span>← look at all options of emojies before approving →</span></div>
+
+                <div class="swipe-container">
+                    <div class="option-card locked">
+                        <span class="lock-badge">🔒</span>
+                        <div class="preview-box">🎈🎈🎈</div>
+                        <div class="option-info">
+                            <h3>boring balloons</h3>
+                            <p>too boring for a special dayy :(</p>
+                        </div>
+                    </div>
+
+                    <div class="option-card unlocked">
+                        <span class="lock-badge"></span>
+                        <div class="preview-box">🌔</div>
+                        <div class="option-info">
+                            <h3>waxing gibbous moon</h3>
+                            <p>moon emoji for moonpgluuu? with the moon stage todayy?? with a moon backgrounddd????</p>
+                        </div>
+                    </div>
+
+                    <div class="option-card locked">
+                        <span class="lock-badge">🔒</span>
+                        <div class="preview-box">🎂🎉</div>
+                        <div class="option-info">
+                            <h3>overused emojies</h3>
+                            <p>literally everyone use thesee :/</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-reject" onclick="handleReject('Decoration')">Reject</button>
+                    <button class="btn btn-approve" onclick="nextStep(4)">Approve Gift ❤️</button>
+                </div>
+            </div>
+
+            <!-- STEP 4: Final Card Reveal -->
+            <div class="screen" id="screen-4">
+                <h1>ta daa</h1>
+                <p class="subtitle">final result of your efforts</p>
+
+                <div class="final-card-preview" id="finalCardBox" style="background: #1a1a1a; border: 2px solid #000000; color:white;">
+                    <div class="final-decoration" id="finalDecor">🌔</div>
+                    <div class="final-message" id="finalFont" style="font-family: 'Great Vibes', cursive;">
+                        thank you for listening to my endless yap everytime. i hope this yap goes on forever and everr and everrrrr. wishing you the happiest of birthdayys!!!
+                    </div>
+                    <div class="final-signature">from  <div style="font-family: 'Great Vibes', cursive;">Smooooooooooth operatoooooooor</div></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function nextStep(stepNumber) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById('screen-' + stepNumber).classList.add('active');
+            
+            if (stepNumber <= 3) {
+                document.getElementById('stepIndicator').innerText = `decor no. ${stepNumber}`;
+            } else {
+                document.getElementById('stepIndicator').innerText = 'final result';
+            }
+        }
+
+        function handleReject(category) {
+        }
+
+        function restartExperience() {
+            nextStep(1);
+        }
+    </script>
+</body>
+</html>
