@@ -50,8 +50,6 @@
             overflow: hidden;
             position: relative;
         }
-
-        /* Top Notch / Header */
         .phone-header {
             padding: 20px 24px 10px 24px;
             display: flex;
@@ -74,7 +72,6 @@
             border-radius: 20px;
         }
 
-        /* Main Content Area */
         .content-area {
             flex: 1;
             display: flex;
@@ -113,7 +110,6 @@
             line-height: 1.5;
         }
 
-        /* Swipe-able Container */
         .swipe-container {
             display: flex;
             gap: 16px;
@@ -197,7 +193,6 @@
             line-height: 1.4;
         }
 
-        /* Action Buttons */
         .action-buttons {
             display: flex;
             gap: 12px;
@@ -250,8 +245,7 @@
         .btn-primary:hover {
             background: var(--primary-red-hover);
         }
-
-        /* Final Card Preview Screen */
+      
         .final-card-preview {
             width: 100%;
             height: 380px;
@@ -285,7 +279,6 @@
             z-index: 2;
         }
 
-        /* Swipe hint indicator */
         .swipe-hint {
             text-align: center;
             font-size: 12px;
@@ -301,16 +294,11 @@
 <body>
 
     <div class="phone-container">
-        <!-- Header -->
         <div class="phone-header">
-            <span class="brand">make you bday card urself</span>
+            <span class="brand">make your bday card urself</span>
             <span class="step-indicator" id="stepIndicator">decor no. 1</span>
         </div>
-
-        <!-- Content Body -->
         <div class="content-area">
-
-            <!-- STEP 1: Background Selection -->
             <div class="screen active" id="screen-1">
                 <h1>background</h1>
                 <p class="subtitle">choose which bg you like, or can you >:)</p>
@@ -318,7 +306,6 @@
                 <div class="swipe-hint"><span>← see all options of background before approving →</span></div>
 
                 <div class="swipe-container">
-                    <!-- Locked Option 1 -->
                     <div class="option-card locked">
                         <span class="lock-badge">🔒</span>
                         <div class="preview-box" style="background: #ffc4c8; border: 2px dashed var(--primary-red);">🌸</div>
@@ -327,8 +314,6 @@
                             <p>i already made the website rose so no rose card</p>
                         </div>
                     </div>
-
-                    <!-- Unlocked Gift Option -->
                     <div class="option-card unlocked" id="bg-gift-card">
                         <span class="lock-badge"></span>
                         <div class="preview-box" style="background: #1a1a1a; color: white;">🌙</div>
@@ -337,8 +322,6 @@
                             <p>you will understand why this one is choosen in step 3...</p>
                         </div>
                     </div>
-
-                    <!-- Locked Option 2 -->
                     <div class="option-card locked">
                         <span class="lock-badge">🔒</span>
                         <div class="preview-box" style="background: #2e84ff;">🌊</div>
@@ -354,8 +337,6 @@
                     <button class="btn btn-approve" onclick="nextStep(2)">Approve Gift ❤️</button>
                 </div>
             </div>
-
-            <!-- STEP 2: Font & Typography -->
             <div class="screen" id="screen-2">
                 <h1>font</h1>
                 <p class="subtitle">choose font for the card</p>
@@ -396,8 +377,6 @@
                     <button class="btn btn-approve" onclick="nextStep(3)">Approve Gift ❤️</button>
                 </div>
             </div>
-
-            <!-- STEP 3: Decoration & Accents -->
             <div class="screen" id="screen-3">
                 <h1>emoji timeee</h1>
                 <p class="subtitle">an emoji for the card's front</p>
@@ -438,8 +417,6 @@
                     <button class="btn btn-approve" onclick="nextStep(4)">Approve Gift ❤️</button>
                 </div>
             </div>
-
-            <!-- STEP 4: Final Card Reveal -->
             <div class="screen" id="screen-4">
                 <h1>ta daa</h1>
                 <p class="subtitle">final result of your efforts</p>
